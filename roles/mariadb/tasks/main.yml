@@ -1,0 +1,25 @@
+---
+
+- name: Add bitnami chart repo
+  community.kubernetes.helm_repository:
+    name: bitnami
+    repo_url: "https://charts.bitnami.com/bitnami"
+
+- name: Deploy wordpress
+  community.kubernetes.helm:
+    name: mariadb
+    release_state: "{{ state }}"
+    chart_version: "10.1.5"
+    chart_ref: bitnami/mariadb-galera
+    create_namespace: true
+    update_repo_cache: true
+    release_namespace: "{{ mariadb_namespace }}"
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+
+- name: Delete namespace
+  when: state == "absent"
+  community.kubernetes.k8s:
+    name: "{{ mariadb_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: "{{ state }}"

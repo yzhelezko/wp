@@ -1,0 +1,7 @@
+mariadb_namespace: "mariadb"
+mariadb_root_password: "default"
+mariadb_db_name: "db1"
+mariadb_db_user: "dbuser"
+mariadb_db_password: "default"
+mariadb_backup_user: "backupuser"
+mariadb_backup_password: "default"

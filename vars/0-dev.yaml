@@ -13,3 +13,11 @@ certificate_acme_server: "https://acme-v02.api.letsencrypt.org/directory"
 ## observability configs
 observability_grafana_password: "{{ lookup('env','OBSERVABILITY_GRAFANA_PASSWORD') | trim }}"
 observability_subpathGrafana: "/grafana"
+
+## mariadb
+mariadb_root_password: "default"
+mariadb_db_name: "db1"
+mariadb_db_user: "dbuser"
+mariadb_db_password: "default"
+mariadb_backup_user: "backupuser"
+mariadb_backup_password: "default"
