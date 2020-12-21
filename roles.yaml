@@ -1,0 +1,20 @@
+---
+
+- name: Deploy Infrastructure
+  become: true
+  hosts: "localhost"
+  gather_facts: no
+  vars_files: 
+    - "vars/all-global.yaml"
+    - "vars/{{ env_file_name }}.yaml"
+  roles:
+
+    # infra
+    - { role: nginx,                       tags: [ all, infra, nginx ] }
+    - { role: reflector,                   tags: [ all, infra, reflector] }
+    - { role: cert-manager,                tags: [ all, infra, cert-manager, cert ] }
+    - { role: certificate,                 tags: [ all, infra, certificate, cert ] }
+    #- { role: observability,               tags: [ all, infra, prometheus, grafana, monitoring ] }
+
+    # services
+    - { role: wordpress,   tags: [ all, infra, wp] }

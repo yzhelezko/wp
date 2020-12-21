@@ -1,0 +1,23 @@
+---
+- name: Add reflector chart repo
+  community.kubernetes.helm_repository:
+    name: emberstack
+    repo_url: "https://emberstack.github.io/helm-charts"
+
+- name: Deploy reflector operator
+  community.kubernetes.helm:
+    name: reflector
+    release_state: "{{ state }}"
+    chart_version: "5.4.17"
+    chart_ref: emberstack/reflector
+    create_namespace: true
+    update_repo_cache: true
+    release_namespace: "{{ reflector_namespace }}"
+
+- name: Delete namespace
+  when: state == "absent"
+  community.kubernetes.k8s:
+    name: "{{ reflector_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: "{{ state }}"

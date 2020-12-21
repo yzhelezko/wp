@@ -1,0 +1,139 @@
+---
+
+- name: Check grafana password
+  assert:
+    that:
+      - observability_grafana_password != ""
+    fail_msg: "'observability_grafana_password' must be assigned!"
+    quiet: true
+
+- name: Add grafana chart repo
+  community.kubernetes.helm_repository:
+    name: grafana
+    repo_url: "https://grafana.github.io/helm-charts"
+
+- name: Add prometheus-community chart repo
+  community.kubernetes.helm_repository:
+    name: prometheus-community
+    repo_url: "https://prometheus-community.github.io/helm-charts"
+
+- name: Add stable chart repo
+  community.kubernetes.helm_repository:
+    name: stable
+    repo_url: "https://charts.helm.sh/stable"
+
+- name: Add loki chart repo
+  community.kubernetes.helm_repository:
+    name: loki
+    repo_url: "https://grafana.github.io/loki/charts"
+
+- name: Create namespace
+  when: state != "absent"
+  community.kubernetes.k8s:
+    name: "{{ observability_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Deploy kubernetes dashboards
+  when: state != "absent"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "dashboards117/dapr_grafana-actor-dashboard.yaml" 
+    - "dashboards117/dapr_grafana-sidecar-dashboard.yaml" 
+    - "dashboards117/dapr_grafana-system-services-dashboard.yaml" 
+    - "dashboards117/persistentvolumesusage.yaml" 
+    - "dashboards117/clusternetworking.yaml" 
+    - "dashboards117/computecluster.yaml" 
+    - "dashboards117/computenetworkbynamespace.yaml" 
+    - "dashboards117/computenetworkbypod.yaml" 
+    - "dashboards117/kubelet.yaml" 
+    - "dashboards117/networkingbypod.yaml" 
+    - "dashboards117/usagebypod.yaml" 
+    - "dashboards117/networkingusagebypod.yaml" 
+    - "dashboards117/nginx.yaml" 
+    - "dashboards117/home.yaml" 
+    - "dashboards117/redis.yaml" 
+    - "dashboards117/redisstreaming.yaml" 
+    - "dashboards117/nodeexporter.yaml" 
+    - "dashboards117/nodeexporterfull.yaml" 
+    - "dashboards117/nodejs.yaml" 
+    - "dashboards117/alerts.yaml" 
+
+- name: Deploy grafana datasources
+  when: state != "absent"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "datasources.yaml"
+
+- name: Deploy grafana notifiers
+  when: state != "absent"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "notifiers.yaml"
+
+- name: Deploy grafana
+  community.kubernetes.helm:
+    name: grafana
+    release_state: "{{ state }}"
+    chart_version: "6.1.14"
+    chart_ref: grafana/grafana
+    release_namespace: "{{ observability_namespace }}"
+    create_namespace: true
+    update_repo_cache: true
+    values: "{{ lookup('template', 'grafana-values.yml') | from_yaml }}"
+
+- name: Deploy alertmanager config
+  when: state != "absent"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "alertmanager-cm.yaml"
+
+- name: Deploy prometheus operator
+  community.kubernetes.helm:
+    name: prometheus
+    release_state: "{{ state }}"
+    chart_version: "11.16.8"
+    chart_ref: prometheus-community/prometheus
+    release_namespace: "{{ observability_namespace }}"
+    create_namespace: true
+    update_repo_cache: true
+    values: "{{ lookup('template', 'prometheus-values.yml') | from_yaml }}"
+
+- name: Deploy loki
+  community.kubernetes.helm:
+    name: loki
+    release_state: "{{ state }}"
+    chart_version: "2.1.0"
+    chart_ref: loki/loki
+    release_namespace: "{{ observability_namespace }}"
+    create_namespace: true
+    update_repo_cache: true
+    values: "{{ lookup('template', 'loki-values.yml') | from_yaml }}"
+
+- name: Deploy promtail
+  community.kubernetes.helm:
+    name: promtail
+    release_state: "{{ state }}"
+    chart_version: "2.0.1"
+    chart_ref: loki/promtail
+    release_namespace: "{{ observability_namespace }}"
+    create_namespace: true
+    update_repo_cache: true
+    values: "{{ lookup('template', 'promtail-values.yml') | from_yaml }}"
+
+- name: Delete namespace
+  when: state == "absent"
+  community.kubernetes.k8s:
+    name: "{{ observability_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: "{{ state }}"

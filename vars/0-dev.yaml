@@ -1,0 +1,15 @@
+---
+## Development environment variables file
+
+# state present to deploy, absent to delete everything be careful
+state: "present"
+env: "dev"
+domain: "bigtest.ventus.dev"
+
+## certificate manager configs # https://acme-staging-v02.api.letsencrypt.org/directory  < staging for testing # https://acme-v02.api.letsencrypt.org/directory < prod
+certificate_email_letsencrypt: "yzhelezko@gmail.com"
+certificate_acme_server: "https://acme-v02.api.letsencrypt.org/directory"
+
+## observability configs
+observability_grafana_password: "{{ lookup('env','OBSERVABILITY_GRAFANA_PASSWORD') | trim }}"
+observability_subpathGrafana: "/grafana"

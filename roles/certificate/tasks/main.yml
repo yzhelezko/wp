@@ -1,0 +1,9 @@
+---
+
+- name: Deploy certificate
+  when: env != "dev"
+  community.kubernetes.k8s:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "deploy-certificate.yaml"

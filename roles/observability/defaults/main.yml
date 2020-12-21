@@ -1,0 +1,8 @@
+observability_namespace: "observability"
+observability_subpathAlertmanager: "/alertmanager"
+observability_grafana_password: ""
+observability_smtp_host: ""
+observability_smtp_from: ""
+observability_smtp_to: ""
+observability_auth_username: ""
+observability_auth_password: ""

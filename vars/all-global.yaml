@@ -1,0 +1,3 @@
+---
+# ingrss controller config
+ingressClass: "nginx"

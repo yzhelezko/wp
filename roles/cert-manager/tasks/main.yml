@@ -1,0 +1,25 @@
+---
+
+- name: Deploy cert-manager
+  when: env == "dev"
+  community.kubernetes.k8s:
+    state: "present"
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "1_cert-manager.yaml"
+
+- name: Deploy certificate
+  when: env == "dev"
+  community.kubernetes.k8s:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - "generate-certificate.yaml"
+
+- name: Delete namespace
+  when: state == "absent"
+  community.kubernetes.k8s:
+    name: "{{ cert_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: "{{ state }}"

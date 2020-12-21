@@ -1,0 +1,35 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: "{{ cert_namespace }}"
+spec:
+  acme:
+    server: "{{ certificate_acme_server }}"
+    email: "{{ certificate_email_letsencrypt }}"
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+      - http01:
+          ingress:
+            class: "{{ ingressClass }}"
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: domain-certificate
+  namespace: "{{ cert_namespace }}"
+  annotations:
+    reflector.v1.k8s.emberstack.com/secret-reflection-auto-enabled: "true"
+    reflector.v1.k8s.emberstack.com/secret-reflection-allowed: "true"
+    reflector.v1.k8s.emberstack.com/secret-reflection-auto-namespaces: "observability,default"
+    reflector.v1.k8s.emberstack.com/secret-reflection-allowed-namespaces: "observability,default"
+spec:
+  secretName: tls-domain-certificate
+  issuerRef:
+    kind: Issuer
+    name: letsencrypt
+  commonName: '{{ domain }}'
+  dnsNames:
+  - '{{ domain }}'

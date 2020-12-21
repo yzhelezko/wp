@@ -1,0 +1,827 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alerts
+  namespace: "{{ observability_namespace }}"
+  labels:
+    grafana_dashboard: "true"
+data:
+  alerts.json: |-
+    {
+    "annotations": {
+        "list": [
+        {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "showIn": 0,
+            "type": "dashboard"
+        }
+        ]
+    },
+    "description": "Dashboard to visualize only Open(LIVE) Alerts of AlertManager",
+    "editable": false,
+    "gnetId": 12947,
+    "graphTooltip": 0,
+    "iteration": 1608052538451,
+    "links": [],
+    "panels": [
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "displayName": "",
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "red",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 0,
+            "y": 0
+        },
+        "id": 8,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Total",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "displayName": "",
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "red",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 3,
+            "y": 0
+        },
+        "id": 20,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "severity=~\"critical\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Total Critical",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "displayName": "",
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "orange",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 6,
+            "y": 0
+        },
+        "id": 21,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "severity=~\"warning\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Total Warning",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "displayName": "",
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "red",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 9,
+            "y": 0
+        },
+        "id": 18,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "alertname=~\"KubePodCrashLooping\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Pod Crash Looping",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "red",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 12,
+            "y": 0
+        },
+        "id": 15,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "alertname=~\"KubePodNotReady\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Pod Not Ready",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "orange",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 15,
+            "y": 0
+        },
+        "id": 16,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "alertname=~\"KubeMemOvercommit\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Memory Overcommit",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "orange",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 18,
+            "y": 0
+        },
+        "id": 17,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "alertname=~\"CPUThrottlingHigh\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "CPU Throttling",
+        "type": "stat"
+        },
+        {
+        "cacheTimeout": null,
+        "datasource": "$alertmanager",
+        "description": "",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {},
+            "mappings": [
+                {
+                "id": 0,
+                "op": "=",
+                "text": "0",
+                "type": 1,
+                "value": "null"
+                }
+            ],
+            "nullValueMode": "connected",
+            "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                {
+                    "color": "orange",
+                    "value": null
+                }
+                ]
+            },
+            "unit": "none"
+            },
+            "overrides": []
+        },
+        "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 21,
+            "y": 0
+        },
+        "id": 19,
+        "links": [],
+        "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+            "calcs": [
+                "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+            },
+            "textMode": "auto"
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "alertname=~\"KubePersistentVolumeUsageCritical\"",
+            "labelSelector": "*",
+            "legendFormat": "",
+            "refId": "A",
+            "target": "Query",
+            "type": "single"
+            }
+        ],
+        "title": "Volume Usage Critical",
+        "type": "stat"
+        },
+        {
+        "columns": [],
+        "datasource": "$alertmanager",
+        "description": "MAKE SURE TO SCROLL TO BOTTOM AND CHECK FOR MORE ALERTS",
+        "fieldConfig": {
+            "defaults": {
+            "custom": {}
+            },
+            "overrides": []
+        },
+        "fontSize": "100%",
+        "gridPos": {
+            "h": 98,
+            "w": 24,
+            "x": 0,
+            "y": 4
+        },
+        "id": 14,
+        "pageSize": null,
+        "showHeader": true,
+        "sort": {
+            "col": 1,
+            "desc": true
+        },
+        "styles": [
+            {
+            "$$hashKey": "object:262",
+            "alias": "TIME",
+            "align": "",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "link": false,
+            "pattern": "Time",
+            "type": "date"
+            },
+            {
+            "$$hashKey": "object:263",
+            "alias": "ALERT",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "mappingType": 1,
+            "pattern": "alertname",
+            "preserveFormat": false,
+            "thresholds": [],
+            "type": "string",
+            "unit": "short"
+            },
+            {
+            "$$hashKey": "object:264",
+            "alias": "MESSAGE",
+            "align": "auto",
+            "colorMode": null,
+            "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 2,
+            "link": false,
+            "linkTargetBlank": true,
+            "linkTooltip": "Click to view detail metrics",
+            "linkUrl": "/d/LINK_TO_YOUR_NODE_SPECIFIC_DASHBOARD_GOES_HERE?var-host=${__cell_2}",
+            "mappingType": 1,
+            "pattern": "message",
+            "preserveFormat": false,
+            "sanitize": false,
+            "thresholds": [],
+            "type": "string",
+            "unit": "short"
+            },
+            {
+            "$$hashKey": "object:265",
+            "alias": "SEVERITY",
+            "align": "auto",
+            "colorMode": "row",
+            "colors": [
+                "rgba(50, 172, 45, 0.97)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.9)"
+            ],
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "decimals": 0,
+            "link": false,
+            "mappingType": 1,
+            "pattern": "severity",
+            "preserveFormat": false,
+            "sanitize": false,
+            "thresholds": [
+                "2",
+                "4"
+            ],
+            "type": "string",
+            "unit": "short",
+            "valueMaps": [
+                {
+                "$$hashKey": "object:363",
+                "text": "critical",
+                "value": "4"
+                },
+                {
+                "$$hashKey": "object:364",
+                "text": "warning",
+                "value": "2"
+                }
+            ]
+            },
+            {
+            "$$hashKey": "object:269",
+            "alias": "",
+            "align": "right",
+            "colorMode": null,
+            "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+            ],
+            "decimals": 2,
+            "link": false,
+            "pattern": "/.*/",
+            "thresholds": [],
+            "type": "hidden",
+            "unit": "short"
+            }
+        ],
+        "targets": [
+            {
+            "annotations": false,
+            "expr": "",
+            "labelSelector": "*",
+            "legendFormat": "{{ '{{ msg }}' }}",
+            "refId": "A",
+            "target": "Query",
+            "type": "table"
+            }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "OPEN ALERTS",
+        "transform": "table",
+        "transformations": [
+            {
+            "id": "organize",
+            "options": {
+                "excludeByName": {
+                "message": false,
+                "runbook_url": false,
+                "severity": false
+                },
+                "indexByName": {
+                "Time": 0,
+                "alertname": 1,
+                "availability_zone": 3,
+                "container_name": 18,
+                "data": 17,
+                "device": 5,
+                "env": 4,
+                "fstype": 6,
+                "host": 2,
+                "image_name": 19,
+                "instance": 7,
+                "instance_type": 8,
+                "ipaddress": 9,
+                "job": 10,
+                "mountpoint": 11,
+                "name": 23,
+                "platform_version": 12,
+                "prometheus": 13,
+                "region": 14,
+                "service_name": 20,
+                "severity": 15,
+                "slack_channel": 21,
+                "state": 24,
+                "tag_name": 22,
+                "team": 16,
+                "type": 25
+                },
+                "renameByName": {
+                "severity": ""
+                }
+            }
+            }
+        ],
+        "type": "table-old"
+        }
+    ],
+    "refresh": "30s",
+    "schemaVersion": 26,
+    "style": "dark",
+    "tags": [
+        "alertmanager"
+    ],
+    "templating": {
+        "list": [
+        {
+            "current": {
+            "selected": false,
+            "text": "Prometheus AlertManager",
+            "value": "Prometheus AlertManager"
+            },
+            "error": null,
+            "hide": 0,
+            "includeAll": false,
+            "label": "Alertmanager",
+            "multi": false,
+            "name": "alertmanager",
+            "options": [],
+            "query": "camptocamp-prometheus-alertmanager-datasource",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+        }
+        ]
+    },
+    "time": {
+        "from": "now-15m",
+        "to": "now"
+    },
+    "timepicker": {
+        "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+        ],
+        "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+        ]
+    },
+    "timezone": "browser",
+    "title": "Alerts",
+    "uid": "WojOgXTmk",
+    "version": 1
+    }
